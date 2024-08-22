@@ -238,6 +238,22 @@ pub trait Decider<
         // returns `Result<bool, Error>` to differentiate between an error occurred while performing
         // the verification steps, and the verification logic of the scheme not passing.
     ) -> Result<bool, Error>;
+
+    fn get_public_input(
+        vp: Self::VerifierParam,
+        i: C1::ScalarField,
+        z_0: Vec<C1::ScalarField>,
+        z_i: Vec<C1::ScalarField>,
+        running_instance: &Self::CommittedInstance,
+        incoming_instance: &Self::CommittedInstance,
+        proof: &Self::Proof,
+        // returns `Result<bool, Error>` to differentiate between an error occurred while performing
+        // the verification steps, and the verification logic of the scheme not passing.
+    ) -> Result<Vec<CurveGroup::ScalarField>, Error> {
+        vec![
+            z_0
+        ]
+    }
 }
 
 /// DeciderOnchain extends the Decider into preparing the calldata
