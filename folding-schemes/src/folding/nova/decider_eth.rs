@@ -253,7 +253,7 @@ where
         running_instance: &Self::CommittedInstance,
         incoming_instance: &Self::CommittedInstance,
         proof: &Self::Proof,
-    ) -> Vec<C1::ScalarField> {
+    ) -> Result<Vec<CurveGroup::ScalarField>, Error>  {
         if i <= C1::ScalarField::one() {
             return Err(Error::NotEnoughSteps);
         }
@@ -268,7 +268,7 @@ where
         let (cmW_x, cmW_y) = NonNativeAffineVar::inputize(U.cmW)?;
         let (cmT_x, cmT_y) = NonNativeAffineVar::inputize(proof.cmT)?;
 
-        let public_input: Vec<CurveGroup::ScalarField> = [
+        let public_input: Vec<dyn CurveGroup::ScalarField> = [
             vec![pp_hash, i],
             z_0,
             z_i,
