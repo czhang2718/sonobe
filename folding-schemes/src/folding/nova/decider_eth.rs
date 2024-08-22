@@ -186,7 +186,7 @@ where
         running_instance: &Self::CommittedInstance,
         incoming_instance: &Self::CommittedInstance,
         proof: &Self::Proof,
-    ) -> Result<Vec<Vec<C1::ScalarField>>, Error> {
+    ) -> Vec<Vec<C1::ScalarField>> {
         if i <= C1::ScalarField::one() {
             return Err(Error::NotEnoughSteps);
         }
@@ -221,29 +221,29 @@ where
             vec![proof.r],
         ]
         .concat();
-        return public_input
+        return public_input;
 
-        let snark_v = S::verify(&snark_vk, &public_input, &proof.snark_proof)
-            .map_err(|e| Error::Other(e.to_string()))?;
-        if !snark_v {
-            return Err(Error::SNARKVerificationFail);
-        }
+        // let snark_v = S::verify(&snark_vk, &public_input, &proof.snark_proof)
+        //     .map_err(|e| Error::Other(e.to_string()))?;
+        // if !snark_v {
+        //     return Err(Error::SNARKVerificationFail);
+        // }
 
-        // we're at the Ethereum EVM case, so the CS1 is KZG commitments
-        CS1::verify_with_challenge(
-            &cs_vk,
-            proof.kzg_challenges[0],
-            &U.cmW,
-            &proof.kzg_proofs[0],
-        )?;
-        CS1::verify_with_challenge(
-            &cs_vk,
-            proof.kzg_challenges[1],
-            &U.cmE,
-            &proof.kzg_proofs[1],
-        )?;
+        // // we're at the Ethereum EVM case, so the CS1 is KZG commitments
+        // CS1::verify_with_challenge(
+        //     &cs_vk,
+        //     proof.kzg_challenges[0],
+        //     &U.cmW,
+        //     &proof.kzg_proofs[0],
+        // )?;
+        // CS1::verify_with_challenge(
+        //     &cs_vk,
+        //     proof.kzg_challenges[1],
+        //     &U.cmE,
+        //     &proof.kzg_proofs[1],
+        // )?;
 
-        Ok(true)
+        // Ok(true)
     }
 }
 
