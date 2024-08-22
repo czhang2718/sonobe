@@ -250,9 +250,7 @@ pub trait Decider<
         // returns `Result<bool, Error>` to differentiate between an error occurred while performing
         // the verification steps, and the verification logic of the scheme not passing.
     ) -> Result<Vec<C1::ScalarField>, Error> {
-        vec![
-            z_0
-        ]
+        Ok(vec![])
     }
 }
 
