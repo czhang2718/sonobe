@@ -186,7 +186,7 @@ where
         running_instance: &Self::CommittedInstance,
         incoming_instance: &Self::CommittedInstance,
         proof: &Self::Proof,
-    ) -> Result<bool, Error> {
+    ) -> Result<Vec<Vec<C1::ScalarField>>, Error> {
         if i <= C1::ScalarField::one() {
             return Err(Error::NotEnoughSteps);
         }
@@ -221,6 +221,7 @@ where
             vec![proof.r],
         ]
         .concat();
+        return public_input
 
         let snark_v = S::verify(&snark_vk, &public_input, &proof.snark_proof)
             .map_err(|e| Error::Other(e.to_string()))?;
